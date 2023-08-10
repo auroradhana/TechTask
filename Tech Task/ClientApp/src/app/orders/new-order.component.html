@@ -1,0 +1,76 @@
+<nav class="navbar bg-white border-bottom box-shadow">
+  <div class="container">
+    <h1 class="navbar-brand">New Order</h1>
+  </div>
+</nav>
+
+<div class="container">
+  <form class="form-horizontal" [formGroup]="orderForm" (submit)="saveOrder()">
+    <div>
+      <label class="control-label" for="id">Order Number <sup>(required)</sup> :</label>
+      <input class="form-control" formControlName="id" id="id" />
+
+      <label class="control-label" for="orderDate">Order Date:</label>
+      <input class="form-control" formControlName="orderDate" id="orderDate" readonly />
+
+      <label class="control-label" for="customerId">Customer <sup>(required)</sup> :</label>
+      <input class="form-control" formControlName="customerId" id="customerId" />
+
+      <!--<select class="form-select" formControlName="customerId" id="customerId">
+    <option disabled selected value="">Select Customer</option>
+    <option>John</option>
+    <option>Josh</option>
+    <option>Jotaro</option>
+    <option>Justin</option>
+  </select>-->
+
+      <label class="control-label" for="status">Status <sup>(required)</sup> :</label>
+      <select class="form-select" formControlName="status" id="status">
+        <option disabled selected value="">Select Status</option>
+        <option>New</option>
+        <option>Paid</option>
+        <option>Shipped</option>
+        <option>Delivered</option>
+        <option>Closed</option>
+      </select>
+
+      <label class="control-label" for="totalCost">Total Cost:</label>
+      <input class="form-control" [(ngModel)]="total" formControlName="totalCost" id="totalCost" readonly />
+
+      <label class="control-label" for="products">Add Products:</label>
+      <button type="button" (click)="addProduct()"> Add</button>
+      <table formArrayName="products">
+        <thead>
+          <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Product Category</th>
+            <th>Product Size</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.size}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.price}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <label class="control-label" for="comment">Comment:</label>
+      <textarea class="form-control" formControlName="comment" id="comment"></textarea>
+    </div>
+    <br />
+    <nav class="navbar">
+      <div class="container navbar-collapse d-sm-inline-flex justify-content-end">
+        <button type="submit" class="btn" [disabled]="!orderForm.valid">Submit</button>
+        <button type="button" class="btn" [routerLink]="['../list']">Cancel</button>
+      </div>
+    </nav>
+  </form>
+</div>
